@@ -9,4 +9,7 @@ Este projeto tem como objetivo avaliar modelos de Machine Learning para classifi
 - Cálculo e armazenamento de métricas como **acurácia, RMSE e R²**
 - Conexão com **PostgreSQL** para salvar os resultado
 
+👤 Autor
+Nome: Erik Rebelo
+📧 Email: erik.rebelo.silva@.gmail.com
 
