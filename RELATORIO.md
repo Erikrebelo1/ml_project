@@ -50,49 +50,6 @@ R² (Coeficiente de Determinação): Mede o quão bem o modelo explica a variân
 
 📊 Resultados Obtidos
 
-Modelo
-
-Métrica
-
-Valor
-
-RandomForest
-
-Acurácia
-
-XX.XX%
-
-SVM
-
-Acurácia
-
-XX.XX%
-
-LinearRegression
-
-RMSE
-
-X.XXXX
-
-LinearRegression
-
-R²
-
-X.XXXX
-
-XGBoost
-
-RMSE
-
-X.XXXX
-
-XGBoost
-
-R²
-
-X.XXXX
-
-(Valores reais devem ser substituídos pelos resultados do experimento.)
 
 📚 Armazenamento dos Resultados
 
