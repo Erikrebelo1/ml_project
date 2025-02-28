@@ -1,0 +1,60 @@
+-- ATENÇÃO: Se o banco de dados "ml_experimentos" ainda não existir,
+-- execute o comando abaixo (ou crie-o via sua interface administrativa):
+-- CREATE DATABASE ml_experimentos;
+
+-- Conecte-se ao banco de dados ml_experimentos e execute os seguintes comandos:
+
+-- 1. Tabela: modelos
+-- Armazena informações gerais sobre cada modelo treinado.
+CREATE TABLE IF NOT EXISTS modelos (
+    id SERIAL PRIMARY KEY,
+    nome_modelo VARCHAR(255) NOT NULL,
+    tipo_modelo VARCHAR(50),         -- Ex.: 'classificacao' ou 'regressao'
+    data_treinamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Tabela: hiperparametros
+-- Armazena os hiperparâmetros utilizados para cada modelo.
+CREATE TABLE IF NOT EXISTS hiperparametros (
+    id SERIAL PRIMARY KEY,
+    modelo_id INTEGER REFERENCES modelos(id) ON DELETE CASCADE,
+    parametro VARCHAR(255) NOT NULL,
+    valor VARCHAR(255) NOT NULL
+);
+
+-- 3. Tabela: pre_processamento
+-- Armazena as estratégias de pré-processamento aplicadas a cada modelo.
+CREATE TABLE IF NOT EXISTS pre_processamento (
+    id SERIAL PRIMARY KEY,
+    modelo_id INTEGER REFERENCES modelos(id) ON DELETE CASCADE,
+    estrategia VARCHAR(255) NOT NULL
+);
+
+-- 4. Tabela: metricas
+-- Armazena as métricas calculadas para cada modelo (por exemplo, durante o treino, validação e teste).
+CREATE TABLE IF NOT EXISTS metricas (
+    id SERIAL PRIMARY KEY,
+    modelo_id INTEGER REFERENCES modelos(id) ON DELETE CASCADE,
+    conjunto VARCHAR(50),            -- Ex.: 'treino', 'validacao', 'teste'
+    metrica VARCHAR(50) NOT NULL,    -- Ex.: 'acuracia', 'MSE', 'RMSE', 'R²'
+    valor FLOAT NOT NULL
+);
+
+-- 5. Tabela: modelos_ml
+-- Armazena os modelos serializados (por exemplo, usando pickle/joblib).
+CREATE TABLE IF NOT EXISTS modelos_ml (
+    id SERIAL PRIMARY KEY,
+    modelo_id INTEGER REFERENCES modelos(id) ON DELETE CASCADE,
+    modelo_serializado BYTEA NOT NULL,
+    -- A coluna 'metrica' aqui pode ser usada para salvar uma métrica resumida no momento do salvamento
+    metrica FLOAT
+);
+
+-- 6. Tabela: avaliacao_modelos
+-- Armazena os resultados da avaliação dos modelos (ex.: acurácia, RMSE, R²).
+CREATE TABLE IF NOT EXISTS avaliacao_modelos (
+    id SERIAL PRIMARY KEY,
+    modelo_id INTEGER REFERENCES modelos(id) ON DELETE CASCADE,
+    metrica VARCHAR(50) NOT NULL,
+    valor FLOAT NOT NULL
+);
